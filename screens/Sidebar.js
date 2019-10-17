@@ -22,7 +22,7 @@ class SideBar extends React.Component {
                             resizeMode: 'stretch',
                             alignSelf: "center"
                         }}
-                        source={{ uri: this.props.imageUrl }}
+                        source={{ uri: 'https://cdn.s3waas.gov.in/s38cb22bdd0b7ba1ab13d742e22eed8da2/uploads/2019/05/2019052938.jpg' }}
                     />
                     <List
                         dataArray={this.props.routes}

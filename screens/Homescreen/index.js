@@ -8,6 +8,7 @@ import SettingScreen from '../SettingScreen';
 import ComplaintScreen from '../Complaint';
 import Chatscreen from '../Chat';
 import { createDrawerNavigator } from 'react-navigation-drawer';
+import LoginScreen from '../Login/index';
 
 const HomeStack = createStackNavigator(
     {
@@ -17,19 +18,21 @@ const HomeStack = createStackNavigator(
         Tourism: { screen: TourismScreen }
     },
     {
-        initialRouteName:'Home',
+        initialRouteName: 'Home',
         headerMode: 'none'
     }
 )
 const Drawer = createDrawerNavigator(
-    {   Home: { screen: HomeStack },
+    {
+        Home: { screen: HomeStack },
+        Login: { screen: LoginScreen },
         Complaints: { screen: ComplaintScreen },
         Settings: { screen: SettingScreen },
         Chat: { screen: Chatscreen }
 
     },
     {
-        
+        initialRouteName: 'Login',
         headerMode: 'none'
     }
 )
