@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View , Image } from 'react-native'
 
 export default class Complaint extends Component {
+
+    
+
     render() {
         return (
-            <View>
-                <Text> Complaint </Text>
-            </View>
+           <Image
+           source={{}}/>
         )
     }
 }
