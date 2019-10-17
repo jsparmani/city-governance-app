@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import Home from './screens/Homescreen';
-import { AppLoading } from "expo";
+//import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from 'redux';
 import { persistStore, autoRehydrate } from 'redux-persist';
-import { AsyncStorage } from 'react-native';
-import Reducers from './src/Reducers';
+import { AsyncStorage, StyleSheet } from 'react-native';
+import Reducers from './src/reducers';
 import thunk from "redux-thunk";
+import { View } from 'native-base';
+import SettingScreen from './screens/SettingScreen';
+import Police from './screens/Department/Police';
+import Tourism from './screens/Department/Tourism';
+import Expo, { AppLoading } from "expo";
 
 export default class App extends Component {
 
@@ -27,27 +32,24 @@ export default class App extends Component {
     this.setState({ isReady: true });
   }
 
-
-
   render() {
     if (!this.state.isReady) {
       return <AppLoading />;
-
     }
-
-    store = createStore(Reducers,
-      {},
-      compose(
-        applyMiddleware(thunk),
-        autoRehydrate)
-    );
-
-    persistStore(store, { storage: AsyncStorage, whitelist: ['token'] })
-
     return (
-      <Provider store>
-        <Home />
-      </Provider >
+      <View style={styles.screen}>
+        {/* <Home /> */}
+        {/* <SettingScreen /> */}
+        {/* <Police /> */}
+        <Tourism />
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    alignItems: 'center'
+  }
+});
