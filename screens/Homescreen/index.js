@@ -1,3 +1,4 @@
+import React from "react";
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './HomeScreen';
@@ -8,7 +9,12 @@ import SettingScreen from '../SettingScreen';
 import ComplaintScreen from '../Complaint';
 import Chatscreen from '../Chat';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import LoginScreen from '../Login/index';
+import OfficialLoginScreen from '../Login/OfficialLoginScreen';
+import CitizenLoginScreen from '../Login/CitizenLoginScreen';
+import SideBar from '../Sidebar';
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+
+
 
 const HomeStack = createStackNavigator(
     {
@@ -22,10 +28,23 @@ const HomeStack = createStackNavigator(
         headerMode: 'none'
     }
 )
+
+const LoginStack = createMaterialTopTabNavigator(
+    {
+        Officials: { screen: OfficialLoginScreen },
+        Citizens: { screen: CitizenLoginScreen }
+
+    },
+    {
+        initialRouteName: 'Officials',
+        swipeEnabled: true,
+        tabBarPosition: 'bottom'
+    })
+
 const Drawer = createDrawerNavigator(
     {
         Home: { screen: HomeStack },
-        Login: { screen: LoginScreen },
+        Login: { screen: LoginStack },
         Complaints: { screen: ComplaintScreen },
         Settings: { screen: SettingScreen },
         Chat: { screen: Chatscreen }
@@ -33,7 +52,9 @@ const Drawer = createDrawerNavigator(
     },
     {
         initialRouteName: 'Login',
-        headerMode: 'none'
+        headerMode: 'none',
+        contentComponent: props => <SideBar {...props} />,
+        drawerWidth: 180
     }
 )
 
