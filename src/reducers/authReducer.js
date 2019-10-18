@@ -13,11 +13,12 @@ const INITIAL_STATE = {
     error: "",
     loading: false,
     isLoggedIn: false,
-    routes: ["Settings"]
+    routes: ["Settings"],
+    dept_id: null,
+    user_type: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
-    console.log(action);
 
     switch (action.type) {
         case LOGIN_USER:
@@ -28,7 +29,9 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_USER_SUCCESS:
             return {
                 ...state,
-                token: action.payload,
+                token: action.payload[0],
+                user_type: action.payload[1],
+                dept_id: action.payload[2],
                 loading: false,
                 error: "",
                 isLoggedIn: true
@@ -46,7 +49,9 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_CHECK:
             return {
                 ...state,
-                token: action.payload,
+                token: action.payload[0],
+                user_type: action.payload[1],
+                dept_id: action.payload[2],
                 isLoggedIn: true
             };
         default:
