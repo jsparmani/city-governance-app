@@ -1,39 +1,62 @@
+import {
+    LOGIN_USER,
+    LOGIN_USER_FAIL,
+    LOGIN_USER_SUCCESS,
+    LOGOUT_USER,
+    LOGIN_CHECK
+} from "./types";
+import axios from "axios";
+import {AsyncStorage} from "react-native";
 
-export const Login = ({ email, password }, props) => {
+axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
 
-    return dispatch => {
+export const loginUser = ({username, password}, props) => async dispatch => {
+    console.log("Inside action");
+    dispatch({type: LOGIN_USER});
 
-        dispatch({
-            type: "LOGIN_USER",
-            email: email
+    axios
+        .post("user/token/", {
+            username: username,
+            password: password
+        })
+        .then(res => {
+            loginUserSuccess(dispatch, res.data.token, props);
         })
 
+        .catch(() => {
+            loginUserFail(dispatch);
+        });
+};
 
-    }
-}
-
-
-onLoginSuccess = (dispatch, user, props, token) => {
+const loginUserSuccess = async (dispatch, token, props) => {
+    await AsyncStorage.setItem("auth_token", `Token ${token}`);
 
     dispatch({
-        type: "LOGIN_SUCCESS",
-        fname: snapshot.val().fname,
-        lname: snapshot.val().lname,
-        typee: 'admin',
-        token: token
-    })
+        type: LOGIN_USER_SUCCESS,
+        payload: token
+    });
 
-}
+    props.navigation.navigate("Home");
+};
 
-export const onLogout = (props) => {
+const loginUserFail = dispatch => {
+    dispatch({type: LOGIN_USER_FAIL});
+};
 
-    return dispatch => {
+export const logoutUser = navigation => async dispatch => {
+    await AsyncStorage.removeItem("auth_token");
+    dispatch({type: LOGOUT_USER});
+    navigation.navigate("Login");
+};
 
-       
-                props.navigation.navigate('Login')
-                dispatch({
-                    type: "LOGOUT_USER"
-                })
-}
+export const loginCheck = navigation => async dispatch => {
+    token = await AsyncStorage.getItem("auth_token");
+    if (token) {
+        dispatch({
+            type: LOGIN_CHECK,
+            payload: `Token ${token}`
+        });
 
-}
+        navigation.navigate("Home");
+    }
+};
