@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
     Text,
     View,
@@ -21,7 +21,7 @@ import {
     Card
 } from "native-base";
 import * as DocumentPicker from "expo-document-picker";
-import {Ionicons} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
@@ -49,7 +49,7 @@ export default class GetConnection extends Component {
     };
 
     postDocument() {
-        const {name, uri} = this.state.image;
+        const { name, uri } = this.state.image;
         const uriParts = name.split(".");
         const fileType = uriParts[uriParts.length - 1];
         const formData = new FormData();
@@ -85,11 +85,11 @@ export default class GetConnection extends Component {
                     paddingTop: StatusBar.currentHeight,
                     width: width
                 }}
-                contentContainerStyle={{alignItems: "center"}}
+                contentContainerStyle={{ alignItems: "center" }}
             >
                 <View style={styles.list}>
-                    <View style={{margin: 10}}>
-                        <Text style={{fontSize: 20}}>Department of : </Text>
+                    <View style={{ margin: 10 }}>
+                        <Text style={{ fontSize: 20 }}>Department of : </Text>
                     </View>
                     <Picker
                         selectedValue={this.state.departmentSelected}
@@ -100,7 +100,7 @@ export default class GetConnection extends Component {
                             borderWidth: 2
                         }}
                         onValueChange={(itemValue, itemIndex) =>
-                            this.setState({departmentSelected: itemValue})
+                            this.setState({ departmentSelected: itemValue })
                         }
                     >
                         <Picker.Item label="WATER" value="3" />
@@ -139,30 +139,29 @@ export default class GetConnection extends Component {
                 </View>
 
                 <Button
-                    info
-                    block
+                    transparent button
                     onPress={() => {
                         this.pickDocument();
                     }}
                     style={{
                         padding: 10,
                         borderRadius: 5,
-                        marginTop: 5,
+                        marginTop: 10,
                         width: "80%",
                         marginLeft: "auto",
                         marginRight: "auto",
                         alignContent: "center",
-                        justifyContent: "center"
+                        justifyContent: "center",
+                        marginBottom: 20
                     }}
                 >
                     <Ionicons name="ios-attach" size={40} />
-                    <View style={{marginLeft: 10}}>
-                        <Text style={{fontSize: 20}}>Select a file</Text>
+                    <View style={{ marginLeft: 10 }}>
+                        <Text style={{ fontSize: 20 }}>Attach a file</Text>
                     </View>
                 </Button>
                 <Button
-                    info
-                    block
+                    outline button
                     onPress={() => {
                         this.postDocument();
                     }}
@@ -174,12 +173,12 @@ export default class GetConnection extends Component {
                         marginLeft: "auto",
                         marginRight: "auto",
                         alignContent: "center",
-                        justifyContent: "center"
+                        justifyContent: "center",
+                        backgroundColor: '#f5da42'
                     }}
                 >
-                    <Ionicons name="ios-attach" size={40} />
-                    <View style={{marginLeft: 10}}>
-                        <Text style={{fontSize: 20}}>Submit</Text>
+                    <View style={{ marginLeft: 10 }}>
+                        <Text style={{ fontSize: 20 }}>Submit</Text>
                     </View>
                 </Button>
             </ScrollView>
@@ -194,7 +193,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#f5da42",
         borderRadius: 10,
         shadowColor: "black",
-        shadowOffset: {width: 10, height: 10},
+        shadowOffset: { width: 10, height: 10 },
         elevation: 10
     },
     inputField: {
