@@ -33,7 +33,6 @@ class SideBar extends React.Component {
                         dataArray={this.props.routes}
                         contentContainerStyle={{marginTop: 20}}
                         renderRow={data => {
-                            console.log(data);
                             return (
                                 <ListItem
                                     button

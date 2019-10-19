@@ -15,6 +15,8 @@ import LoginScreen from "../Login/LoginScreen";
 import SignUpScreen from "../Login/SignUpScreen";
 import SideBar from "../Sidebar";
 import {createMaterialTopTabNavigator} from "react-navigation-tabs";
+import PaymentScreen from "../PaymentScreen";
+import BillPaymentScreen from "../BillPaymentScreen";
 
 const HomeStack = createStackNavigator(
     {
@@ -31,7 +33,9 @@ const HomeStack = createStackNavigator(
             navigationOptions: {title: "Add Scheme"}
         },
         Settings: {screen: SettingScreen},
-        Complaints: {screen: ComplaintScreen}
+        Complaints: {screen: ComplaintScreen},
+        PaymentScreen: {screen: PaymentScreen},
+        PayBill: {screen: BillPaymentScreen}
     },
     {
         initialRouteName: "HomeMain",
@@ -94,7 +98,9 @@ const Drawer = createDrawerNavigator(
         },
         Complaints: {screen: ComplaintScreen},
         Settings: {screen: SettingScreen},
-        Chat: {screen: Chatscreen}
+        Chat: {screen: Chatscreen},
+        PaymentScreen: {screen: PaymentScreen},
+        PayBill: {screen: BillPaymentScreen}
     },
     {
         initialRouteName: "Login",
