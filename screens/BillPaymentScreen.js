@@ -8,8 +8,7 @@ import {
     StyleSheet,
     TextInput
 } from "react-native";
-import {Picker, Button, Card} from "native-base";
-import * as ImagePicker from "expo-image-picker";
+import {Picker, Card} from "native-base";
 import {TouchableOpacity} from "react-native-gesture-handler";
 
 const width = Dimensions.get("screen").width;
