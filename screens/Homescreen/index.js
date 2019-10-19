@@ -1,6 +1,6 @@
 import React from "react";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
+import {createAppContainer} from "react-navigation";
+import {createStackNavigator} from "react-navigation-stack";
 import HomeScreen from "./HomeScreen";
 import PWDScreen from "../Department/PWD";
 import PoliceScreen from "../Department/Police";
@@ -13,37 +13,36 @@ import TourismScreen from "../Department/Tourism";
 import SettingScreen from "../SettingScreen";
 import ComplaintScreen from "../Complaint";
 import Chatscreen from "../Chat";
-import { createDrawerNavigator } from "react-navigation-drawer";
+import {createDrawerNavigator} from "react-navigation-drawer";
 import LoginScreen from "../Login/LoginScreen";
 import SignUpScreen from "../Login/SignUpScreen";
 import SideBar from "../Sidebar";
-import { createMaterialTopTabNavigator } from "react-navigation-tabs";
+import {createMaterialTopTabNavigator} from "react-navigation-tabs";
 import PaymentScreen from "../PaymentScreen";
 import BillPaymentScreen from "../BillPaymentScreen";
 
-
 const HomeStack = createStackNavigator(
     {
-        HomeMain: { screen: HomeScreen, navigationOptions: { title: "Home" } },
-        pwd: { screen: PWDScreen },
-        Police: { screen: PoliceScreen },
-        Tourism: { screen: TourismScreen },
+        HomeMain: {screen: HomeScreen, navigationOptions: {title: "Home"}},
+        pwd: {screen: PWDScreen},
+        Police: {screen: PoliceScreen},
+        Tourism: {screen: TourismScreen},
         AddDepartment: {
             screen: AddDeptScreen,
-            navigationOptions: { title: "Add Department" }
+            navigationOptions: {title: "Add Department"}
         },
         AddScheme: {
             screen: AddSchemeScreen,
-            navigationOptions: { title: "Add Scheme" }
+            navigationOptions: {title: "Add Scheme"}
         },
 
-        Settings: { screen: SettingScreen },
-        Complaints: { screen: ComplaintScreen },
-        Downloads: { screen: DownloadScreen },
-        Schemes: { screen: SchemesListScreen },
-        New_Connection: { screen: ConnectionScreen },
-        PaymentScreen: { screen: PaymentScreen },
-        PayBill: { screen: BillPaymentScreen }
+        Settings: {screen: SettingScreen},
+        Complaints: {screen: ComplaintScreen},
+        Downloads: {screen: DownloadScreen},
+        Schemes: {screen: SchemesListScreen},
+        New_Connection: {screen: ConnectionScreen},
+        PaymentScreen: {screen: PaymentScreen},
+        PayBill: {screen: BillPaymentScreen}
     },
     {
         initialRouteName: "HomeMain",
@@ -97,7 +96,7 @@ const LoginStack = createMaterialTopTabNavigator(
 
 const Drawer = createDrawerNavigator(
     {
-        Home: { screen: HomeStack },
+        Home: {screen: HomeStack},
         Login: {
             screen: LoginStack,
             navigationOptions: {
@@ -105,18 +104,19 @@ const Drawer = createDrawerNavigator(
             }
         },
 
-        Complaints: { screen: ComplaintScreen },
-        Downloads: { screen: DownloadScreen },
-        Schemes: { screen: SchemesListScreen },
-        Settings: { screen: SettingScreen },
-        Chat: { screen: Chatscreen },
-        New_Connection: { screen: ConnectionScreen },
-        PaymentScreen: { screen: PaymentScreen },
-        PayBill: { screen: BillPaymentScreen }
+
+        Complaints: {screen: ComplaintScreen},
+        Downloads: {screen: DownloadScreen},
+        Schemes: {screen: SchemesListScreen},
+        Settings: {screen: SettingScreen},
+        Chat: {screen: Chatscreen},
+        New_Connection: {screen: ConnectionScreen},
+        PaymentScreen: {screen: PaymentScreen},
+        PayBill: {screen: BillPaymentScreen}
     },
     {
         initialRouteName: "Login",
-        drawerType: 'slide',
+        drawerType: "slide",
         headerMode: "none",
         contentComponent: props => <SideBar {...props} />,
         drawerWidth: 220
