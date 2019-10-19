@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
     View,
     TextInput,
@@ -13,11 +13,11 @@ import {
     TouchableOpacity,
     AsyncStorage
 } from "react-native";
-import {Button, Item} from "native-base";
-import {LinearGradient} from "expo-linear-gradient";
-import {Ionicons} from "@expo/vector-icons";
-import {connect} from "react-redux";
-import {loginUser, loginCheck} from "../../src/actions";
+import { Button, Item } from "native-base";
+import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
+import { connect } from "react-redux";
+import { loginUser, loginCheck } from "../../src/actions";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
@@ -48,7 +48,7 @@ class LoginScreen extends Component {
     };
 
     loginPress = () => {
-        const {username, password, email} = this.state;
+        const { username, password, email } = this.state;
 
         axios
             .post("user/create/", {
@@ -119,7 +119,8 @@ class LoginScreen extends Component {
         } else {
             return (
                 <ActivityIndicator
-                    style={{width: 100, height: 100, marginTop: 100}}
+                    style={{ width: 100, height: 100, marginTop: 20 }}
+                    size={20}
                 />
             );
         }
@@ -129,7 +130,7 @@ class LoginScreen extends Component {
         return (
             <View style={styles.login2}>
                 <Image
-                    source={{uri: "http://ccmspb.gov.in/images/logo.png"}}
+                    source={{ uri: "http://ccmspb.gov.in/images/logo.png" }}
                     style={{
                         height: 200,
                         width: "50%",
@@ -144,7 +145,7 @@ class LoginScreen extends Component {
                     value={this.props.email}
                     autoCapitalize="none"
                     autoCorrect={false}
-                    onChangeText={username => this.setState({username})}
+                    onChangeText={username => this.setState({ username })}
                 />
                 <TextInput
                     placeholder="   Email"
@@ -153,7 +154,7 @@ class LoginScreen extends Component {
                     autoCapitalize="none"
                     autoCorrect={false}
                     keyboardType="email-address"
-                    onChangeText={email => this.setState({email})}
+                    onChangeText={email => this.setState({ email })}
                 />
 
                 <Item>
@@ -164,7 +165,7 @@ class LoginScreen extends Component {
                         autoCapitalize="none"
                         autoCorrect={false}
                         secureTextEntry={this.state.visibility}
-                        onChangeText={password => this.setState({password})}
+                        onChangeText={password => this.setState({ password })}
                     />
                     <Ionicons
                         name={this.state.passIcon}
@@ -203,7 +204,7 @@ class LoginScreen extends Component {
             >
                 <LinearGradient
                     colors={["#bdc3c7", "#2c3e50"]}
-                    style={{flex: 1}}
+                    style={{ flex: 1 }}
                 >
                     {this.renderNotch()}
                     {this.renderLogin()}
@@ -259,5 +260,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    {loginUser, loginCheck}
+    { loginUser, loginCheck }
 )(LoginScreen);

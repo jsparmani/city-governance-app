@@ -6,12 +6,12 @@ import {
     LOGIN_CHECK
 } from "./types";
 import axios from "axios";
-import {AsyncStorage} from "react-native";
+import { AsyncStorage } from "react-native";
 
 axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
 
-export const loginUser = ({username, password}, props) => async dispatch => {
-    dispatch({type: LOGIN_USER});
+export const loginUser = ({ username, password }, props) => async dispatch => {
+    dispatch({ type: LOGIN_USER });
 
     axios
         .post("user/token/", {
@@ -46,13 +46,18 @@ const loginUserSuccess = async (dispatch, token, props) => {
             routes = [];
 
             if (type === "citizen") {
+
+                
+
                 routes = [
                     "HomeMain",
                     "Complaints",
                     "Settings",
                     "PaymentScreen",
-                    "PayBill"
+                    "PayBill",
+                  "Downloads", "Schemes", "New_Connection",
                 ];
+
             } else if (type === "department") {
                 routes = ["HomeMain", "AddScheme", "Settings"];
             } else if (type === "superuser") {
@@ -69,12 +74,12 @@ const loginUserSuccess = async (dispatch, token, props) => {
 };
 
 const loginUserFail = dispatch => {
-    dispatch({type: LOGIN_USER_FAIL});
+    dispatch({ type: LOGIN_USER_FAIL });
 };
 
 export const logoutUser = navigation => async dispatch => {
     await AsyncStorage.removeItem("auth_token");
-    dispatch({type: LOGOUT_USER});
+    dispatch({ type: LOGOUT_USER });
     navigation.navigate("Login");
 };
 
@@ -98,13 +103,16 @@ export const loginCheck = navigation => async dispatch => {
                     routes = [];
 
                     if (type === "citizen") {
+                   
                         routes = [
                             "HomeMain",
                             "Complaints",
                             "Settings",
                             "PaymentScreen",
-                            "PayBill"
+                            "PayBill",
+                            "Downloads", "Schemes", "New_Connection",
                         ];
+
                     } else if (type === "department") {
                         routes = ["HomeMain", "AddScheme", "Settings"];
                     } else if (type === "superuser") {
@@ -127,6 +135,6 @@ export const loginCheck = navigation => async dispatch => {
                     alert("Not 200");
                 }
             })
-            .catch(err => {});
+            .catch(err => { });
     }
 };
