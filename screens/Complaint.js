@@ -7,7 +7,8 @@ import {
     Dimensions,
     StyleSheet,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    Image
 } from "react-native";
 import {
     Picker,
@@ -46,6 +47,7 @@ class Complaint extends Component {
                 aspect: [1, 1]
             })
             if (!response.cancelled) {
+                console.log(response)
                 this.setState({ avatar: response.uri })
             }
         }
@@ -61,7 +63,7 @@ class Complaint extends Component {
 
     removeimage = () => {
         this.setState({
-            avatar: 'NULL'
+            avatar: ''
         })
     }
 
@@ -100,7 +102,7 @@ class Complaint extends Component {
 
     render() {
         return (
-            <ScrollView
+            <View
                 style={{
                     flex: 1,
                     paddingTop: StatusBar.currentHeight,
@@ -178,32 +180,33 @@ class Complaint extends Component {
                             }
                         />
                     </View>
-                    <Text> Image :  {this.state.avatar}</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Button onPress={() => this.addavatar('gallery')}>
-                            <Text>Use Gallery</Text>
-                        </Button>
-                        <Text>    </Text>
-                        <Button onPress={() => this.addavatar('camera')} style={{ marginLeft: 10 }}>
-                            <Text>Use Camera</Text>
-                        </Button>
-                        <Text>    </Text>
-                        <Button onPress={() => this.removeimage()} style={{ marginLeft: 10 }}>
-                            <Text>Remove Image</Text>
-                        </Button>
+                    <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
+                        <Image
+                            source={this.state.avatar === '' ? require('../assets/default-img.jpg') : { uri: this.state.avatar } }
+                            style={{ width: 200, height: 170, marginRight: 30, marginLeft: 7, borderWidth: 1, borderColor: 'black' }}
+                            resizeMode='contain'
+                        //loadingIndicatorSource={require('../assets/default-img.png')}
+                        // defaultSource={require('../assets/default-img.png')}
+                        />
+                        <View style={{ flexDirection: 'column' }}>
+                            <Button full info style={{ width: '60%', alignSelf: 'center', borderRadius: 10 }} onPress={() => this.addavatar('gallery')} style={{ marginLeft: 10 }}>
+                                <Text style={{ alignContent: 'center' }}>Use Gallery</Text>
+                            </Button>
+                            <Text>    </Text>
+                            <Button full info style={{ width: '60%', alignSelf: 'center', borderRadius: 10 }} onPress={() => this.addavatar('camera')} style={{ marginLeft: 10 }}>
+                                <Text style={{ alignContent: 'center' }}>Use Camera</Text>
+                            </Button>
+                            <Text>    </Text>
+                            <Button full info style={{ width: '60%', alignSelf: 'center', borderRadius: 10 }} onPress={() => this.removeimage()} style={{ marginLeft: 10 }}>
+                                <Text style={{ alignContent: 'center' }}>Remove Image</Text>
+                            </Button>
+                        </View>
                     </View>
-                    <View>
-                        <Button
-                            onPress={() => {
-                                this.fileComplaint();
-                            }}
-                            bordered
-                        >
-                            <Text> File </Text>
-                        </Button>
-                    </View>
+                    <Button block success style={{ width: '91%', marginLeft: 'auto', marginRight: 'auto' }}>
+                        <Text>File Complaint</Text>
+                    </Button>
                 </View>
-            </ScrollView >
+            </View >
         );
     }
 }
