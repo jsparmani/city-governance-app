@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Picker } from 'react-native';
+import { View, Text, StyleSheet, Picker, ScrollView, FlatList, Linking } from 'react-native';
 import axios from 'axios';
-import { Container, Header, Content, Icon, Form } from "native-base";
+import { CardItem, Card, Body, H2 } from "native-base";
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import * as FileSystem from 'expo-file-system';
+import { connect } from 'react-redux';
+
 
 axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
 
-export default class DownloadScreen extends Component {
+class DownloadScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             departments: [],
-            departmentSelected: ''
+            departmentSelected: '',
+            downloads: []
         };
     }
 
@@ -19,6 +24,7 @@ export default class DownloadScreen extends Component {
     };
 
     componentWillMount() {
+        axios.defaults.headers.common['Authorization'] = this.props.token;
         axios.get("department/departments/").then(res => {
             this.setState({ departments: res.data });
         });
@@ -28,21 +34,33 @@ export default class DownloadScreen extends Component {
         return (
             <View>
                 <Picker
-                    mode="dropdown"
-                    placeholder="Select Department"
-                    iosIcon={<Icon name="arrow-down" />}
-                    textStyle={{ color: "#5cb85c" }}
+                    mode='dialog'
+                    placeholder={"Select Department"}
+                    modalStyle={{ marginTop: 10 }}
                     itemStyle={{
                         backgroundColor: "#d3d3d3",
-                        marginLeft: 0,
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
                         paddingLeft: 10
                     }}
                     itemTextStyle={{ color: '#788ad2' }}
-                    style={{ width: undefined }}
-                    selectedValue={this.state.departmentSelected}
-                    onValueChange={(itemValue, itemIndex) =>
-                        this.setState({ departmentSelected: itemValue })}
+                    style={{ width: '90%', margin: 10, backgroundColor: '#f5da42', borderRadius: 15, marginRight: 'auto', marginLeft: 'auto' }}
+                    selectedValue={this.state.departmentSelected === '' ? '   ' : this.state.departmentSelected}
+                    onValueChange={(itemValue, itemIndex) => {
+                        this.setState({ departmentSelected: itemValue })
+                        axios.get(`department/downloads/?department=${itemValue}`).then(res => {
+                            console.log(res.data)
+                            this.setState({ downloads: res.data });
+                        });
+
+                    }}
                 >
+
+                    <Picker.Item
+                        label={'---'}
+                        value={-1}
+                        key={0}
+                    />
                     {this.state.departments.map((item, index) => {
                         return (
                             <Picker.Item
@@ -52,10 +70,48 @@ export default class DownloadScreen extends Component {
                             />
                         );
                     })}
+
                 </Picker>
-                <View>
-                    
-                </View>
+                <ScrollView>
+                    <View>
+                        <H2 style={{ marginLeft: 20, marginTop: 20, marginBottom: 15 }}>Downloads</H2>
+                        <FlatList
+                            data={this.state.downloads}
+                            renderItem={({ item }) => {
+                                return (
+                                    <View style={{ alignSelf: 'center', margineft: 10, width: '90%', elevation: 20, shadowColor: 'black' }}>
+                                        <Card>
+                                            <CardItem header bordered>
+                                                <Text style={{ fontSize: 18 }}>{item.file_name}</Text>
+                                            </CardItem>
+                                            <CardItem>
+                                                <Body>
+                                                    <TouchableWithoutFeedback
+                                                        onPress={() => {
+                                                            Linking.openURL(`${item.file}`);
+                                                            //     FileSystem.downloadAsync(
+                                                            //         item.file,
+                                                            //         FileSystem.documentDirectory
+                                                            //     )
+                                                            //         .then(({ uri }) => {
+                                                            //             alert(`File Downloaded`)
+                                                            //         })
+                                                            //         .catch(error => {
+                                                            //             console.error(error);
+                                                            //         });
+                                                        }}
+                                                    >
+                                                        <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>Download</Text>
+                                                    </TouchableWithoutFeedback>
+                                                </Body>
+                                            </CardItem>
+                                        </Card>
+                                    </View>
+                                )
+                            }}
+                        />
+                    </View>
+                </ScrollView>
             </View>
         );
     }
@@ -73,3 +129,12 @@ const styles = StyleSheet.create({
         elevation: 10
     },
 })
+
+
+mapStateToProps = state => {
+    return {
+        token: state.auth.token
+    }
+}
+
+export default connect(mapStateToProps)(DownloadScreen);

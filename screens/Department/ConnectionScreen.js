@@ -38,6 +38,7 @@ export default class GetConnection extends Component {
         title: "New Connection      "
     };
 
+
     pickDocument = async () => {
         const result = await DocumentPicker.getDocumentAsync({});
         console.log("result", result);
@@ -138,6 +139,7 @@ export default class GetConnection extends Component {
                     </Card>
                 </View>
 
+
                 <Button
                     info
                     block
@@ -160,6 +162,7 @@ export default class GetConnection extends Component {
                         <Text style={{fontSize: 20}}>Select a file</Text>
                     </View>
                 </Button>
+
                 <Button
                     info
                     block
