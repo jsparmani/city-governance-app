@@ -18,7 +18,7 @@ export default class GetConnection extends Component {
 
     selectFile = async () => {
         try {
-            const file = await DocumentPicker.getDocumentAsync();
+            const file = await DocumentPicker.getDocumentAsync({ type: 'application/pdf' });
             if (file.type === 'success') {
                 this.parseFile(file.uri);
                 this.setState({ uri: file.uri })
@@ -80,9 +80,9 @@ export default class GetConnection extends Component {
                         <TextInput style={styles.textIntake} multiline />
                     </Card>
                 </View>
-                <View style={{ flexDirection: 'row', left: 0 }}>
-                    <Text style={{ width: '30%', marginLeft: 5, fontSize: 15 }}>File :</Text>
-                    <Text style={{ fontSize: 15 }}>{this.state.uri.slice(0, 10)}.....</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ marginLeft: 5, fontSize: 15 }}>File :  </Text>
+                    <Text style={{ fontSize: 15 }}>{this.state.uri.slice(0, 30)}.....</Text>
                 </View>
                 <Button
                     info block

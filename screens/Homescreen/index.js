@@ -41,9 +41,9 @@ const HomeStack = createStackNavigator(
         Complaints: { screen: ComplaintScreen },
         Downloads: { screen: DownloadScreen },
         Schemes: { screen: SchemesListScreen },
-        New_Connection: { screen: ConnectionScreen }
-        PaymentScreen: {screen: PaymentScreen},
-        PayBill: {screen: BillPaymentScreen}
+        New_Connection: { screen: ConnectionScreen },
+        PaymentScreen: { screen: PaymentScreen },
+        PayBill: { screen: BillPaymentScreen }
     },
     {
         initialRouteName: "HomeMain",
@@ -110,9 +110,9 @@ const Drawer = createDrawerNavigator(
         Schemes: { screen: SchemesListScreen },
         Settings: { screen: SettingScreen },
         Chat: { screen: Chatscreen },
-        New_Connection: { screen: ConnectionScreen }
-        PaymentScreen: {screen: PaymentScreen},
-        PayBill: {screen: BillPaymentScreen}
+        New_Connection: { screen: ConnectionScreen },
+        PaymentScreen: { screen: PaymentScreen },
+        PayBill: { screen: BillPaymentScreen }
     },
     {
         initialRouteName: "Login",

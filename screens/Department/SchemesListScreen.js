@@ -3,10 +3,12 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 import axios from 'axios';
 import { Container, Header, Content, Icon, Form, Picker, Card, CardItem, Body, H2 } from "native-base";
 import { ScrollView } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
+
 
 axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
 
-export default class DownloadScreen extends Component {
+class SchemeListScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,6 +24,7 @@ export default class DownloadScreen extends Component {
     };
 
     componentWillMount() {
+        axios.defaults.headers.common['Authorization'] = this.props.token;
         axios.get("department/departments/").then(res => {
             this.setState({ departments: res.data });
         });
@@ -133,3 +136,12 @@ const styles = StyleSheet.create({
         elevation: 10
     },
 })
+
+
+mapStateToProps = state => {
+    return {
+        token: state.auth.token
+    }
+}
+
+export default connect(mapStateToProps)(SchemeListScreen);
