@@ -18,6 +18,9 @@ import LoginScreen from "../Login/LoginScreen";
 import SignUpScreen from "../Login/SignUpScreen";
 import SideBar from "../Sidebar";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
+import PaymentScreen from "../PaymentScreen";
+import BillPaymentScreen from "../BillPaymentScreen";
+
 
 const HomeStack = createStackNavigator(
     {
@@ -33,11 +36,14 @@ const HomeStack = createStackNavigator(
             screen: AddSchemeScreen,
             navigationOptions: { title: "Add Scheme" }
         },
+
         Settings: { screen: SettingScreen },
         Complaints: { screen: ComplaintScreen },
         Downloads: { screen: DownloadScreen },
         Schemes: { screen: SchemesListScreen },
         New_Connection: { screen: ConnectionScreen }
+        PaymentScreen: {screen: PaymentScreen},
+        PayBill: {screen: BillPaymentScreen}
     },
     {
         initialRouteName: "HomeMain",
@@ -98,12 +104,15 @@ const Drawer = createDrawerNavigator(
                 drawerLockMode: "locked-closed"
             }
         },
+
         Complaints: { screen: ComplaintScreen },
         Downloads: { screen: DownloadScreen },
         Schemes: { screen: SchemesListScreen },
         Settings: { screen: SettingScreen },
         Chat: { screen: Chatscreen },
         New_Connection: { screen: ConnectionScreen }
+        PaymentScreen: {screen: PaymentScreen},
+        PayBill: {screen: BillPaymentScreen}
     },
     {
         initialRouteName: "Login",

@@ -46,7 +46,18 @@ const loginUserSuccess = async (dispatch, token, props) => {
             routes = [];
 
             if (type === "citizen") {
-                routes = ["HomeMain", "Complaints", "Downloads", "Schemes", "New_Connection", "Settings"];
+
+                
+
+                routes = [
+                    "HomeMain",
+                    "Complaints",
+                    "Settings",
+                    "PaymentScreen",
+                    "PayBill",
+                  "Downloads", "Schemes", "New_Connection",
+                ];
+
             } else if (type === "department") {
                 routes = ["HomeMain", "AddScheme", "Settings"];
             } else if (type === "superuser") {
@@ -92,7 +103,16 @@ export const loginCheck = navigation => async dispatch => {
                     routes = [];
 
                     if (type === "citizen") {
-                        routes = ["HomeMain", "Complaints", "Downloads", "Schemes", "New_Connection", "Settings"];
+                   
+                        routes = [
+                            "HomeMain",
+                            "Complaints",
+                            "Settings",
+                            "PaymentScreen",
+                            "PayBill",
+                            "Downloads", "Schemes", "New_Connection",
+                        ];
+
                     } else if (type === "department") {
                         routes = ["HomeMain", "AddScheme", "Settings"];
                     } else if (type === "superuser") {
