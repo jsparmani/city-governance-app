@@ -74,7 +74,7 @@ const Drawer = createDrawerNavigator(
         Chat: {screen: Chatscreen}
     },
     {
-        initialRouteName: "Login",
+        initialRouteName: "Complaints",
         headerMode: "none",
         contentComponent: props => <SideBar {...props} />,
         drawerWidth: 180
