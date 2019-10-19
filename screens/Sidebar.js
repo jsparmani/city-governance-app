@@ -1,7 +1,7 @@
 import React from "react";
-import {Image, StatusBar, View} from "react-native";
-import {Container, Content, Text, List, ListItem} from "native-base";
-import {connect} from "react-redux";
+import { Image, StatusBar, View } from "react-native";
+import { Container, Content, Text, List, ListItem } from "native-base";
+import { connect } from "react-redux";
 
 class SideBar extends React.Component {
     render() {
@@ -31,9 +31,8 @@ class SideBar extends React.Component {
                     />
                     <List
                         dataArray={this.props.routes}
-                        contentContainerStyle={{marginTop: 20}}
+                        contentContainerStyle={{ marginTop: 20 }}
                         renderRow={data => {
-                            console.log(data);
                             return (
                                 <ListItem
                                     button
@@ -41,7 +40,7 @@ class SideBar extends React.Component {
                                         this.props.navigation.navigate(data)
                                     }
                                 >
-                                    <Text style={{color: "black"}}>
+                                    <Text style={{ color: "black" }}>
                                         {data === "HomeMain" ? "Home" : data}
                                     </Text>
                                 </ListItem>
