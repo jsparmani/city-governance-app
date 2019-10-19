@@ -23,11 +23,18 @@ class DownloadScreen extends Component {
         title: "Downloads"
     };
 
-    componentWillMount() {
-        axios.defaults.headers.common['Authorization'] = this.props.token;
+    fetchDepartments = () => {
         axios.get("department/departments/").then(res => {
-            this.setState({ departments: res.data });
+            this.setState({departments: res.data});
         });
+    };
+
+    componentWillMount() {
+        this.fetchDepartments();
+        this.props.navigation.addListener("willFocus", () => {
+            this.fetchDepartments();
+        });
+        axios.defaults.headers.common["Authorization"] = this.props.token;
     }
 
     render() {
