@@ -7,7 +7,8 @@ import {
     Dimensions,
     StyleSheet,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    Image
 } from "react-native";
 import {
     Picker,
@@ -38,6 +39,10 @@ class Complaint extends Component {
         avatar: ""
     };
 
+    static navigationOptions = {
+        title: "Complaint      "
+    };
+
     addavatar = async type => {
         if (type === "gallery") {
             const response = await ImagePicker.launchImageLibraryAsync({
@@ -59,7 +64,7 @@ class Complaint extends Component {
 
     removeImage = () => {
         this.setState({
-            avatar: "NULL"
+            avatar: ""
         });
     };
 
@@ -84,10 +89,10 @@ class Complaint extends Component {
             type: "multipart/form-data",
             name: `${uuid.v4()}.jpg`
         });
-        form_data.append("department", 2);
-        form_data.append("title", "arggstg");
-        form_data.append("description", "fdhsgdh");
-        form_data.append("user", 2);
+        form_data.append("department", this.state.departmentSelected);
+        form_data.append("title", this.state.title);
+        form_data.append("description", this.state.description);
+        form_data.append("user", this.props.user_id);
         axios.post("department/complaints/", form_data, {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -98,7 +103,7 @@ class Complaint extends Component {
 
     render() {
         return (
-            <ScrollView
+            <View
                 style={{
                     flex: 1,
                     paddingTop: StatusBar.currentHeight,
@@ -106,21 +111,6 @@ class Complaint extends Component {
                 }}
                 contentContainerStyle={{alignItems: "center"}}
             >
-                <Header style={{width: "100%", height: 70, marginBottom: 20}}>
-                    <Left>
-                        <Button transparent>
-                            <Icon name="arrow-back" />
-                        </Button>
-                    </Left>
-                    <Body>
-                        <Title>COMPLAINTS</Title>
-                    </Body>
-                    <Right>
-                        <Button transparent>
-                            <Icon name="menu" />
-                        </Button>
-                    </Right>
-                </Header>
                 <View style={styles.list}>
                     <View style={{margin: 10}}>
                         <Text style={{fontSize: 15, marginTop: 5}}>
@@ -176,38 +166,97 @@ class Complaint extends Component {
                             }
                         />
                     </View>
-                    <Text> Image : {this.state.avatar}</Text>
-                    <View style={{flexDirection: "row"}}>
-                        <Button onPress={() => this.addavatar("gallery")}>
-                            <Text>Use Gallery</Text>
-                        </Button>
-                        <Text> </Text>
-                        <Button
-                            onPress={() => this.addavatar("camera")}
-                            style={{marginLeft: 10}}
-                        >
-                            <Text>Use Camera</Text>
-                        </Button>
-                        <Text> </Text>
-                        <Button
-                            onPress={() => this.removeImage()}
-                            style={{marginLeft: 10}}
-                        >
-                            <Text>Remove Image</Text>
-                        </Button>
-                    </View>
-                    <View>
-                        <Button
-                            onPress={() => {
-                                this.fileComplaint();
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            marginTop: 10,
+                            marginBottom: 10
+                        }}
+                    >
+                        <Image
+                            source={
+                                this.state.avatar === ""
+                                    ? require("../assets/default-img.jpg")
+                                    : {uri: this.state.avatar}
+                            }
+                            style={{
+                                width: 200,
+                                height: 170,
+                                marginRight: 30,
+                                marginLeft: 7,
+                                borderWidth: 1,
+                                borderColor: "black"
                             }}
-                            bordered
-                        >
-                            <Text> File </Text>
-                        </Button>
+                            resizeMode="contain"
+                            //loadingIndicatorSource={require('../assets/default-img.png')}
+                            // defaultSource={require('../assets/default-img.png')}
+                        />
+                        <View style={{flexDirection: "column"}}>
+                            <Button
+                                full
+                                info
+                                style={{
+                                    width: "60%",
+                                    alignSelf: "center",
+                                    borderRadius: 10
+                                }}
+                                onPress={() => this.addavatar("gallery")}
+                                style={{marginLeft: 10}}
+                            >
+                                <Text style={{alignContent: "center"}}>
+                                    Use Gallery
+                                </Text>
+                            </Button>
+                            <Text> </Text>
+                            <Button
+                                full
+                                info
+                                style={{
+                                    width: "60%",
+                                    alignSelf: "center",
+                                    borderRadius: 10
+                                }}
+                                onPress={() => this.addavatar("camera")}
+                                style={{marginLeft: 10}}
+                            >
+                                <Text style={{alignContent: "center"}}>
+                                    Use Camera
+                                </Text>
+                            </Button>
+                            <Text> </Text>
+                            <Button
+                                full
+                                info
+                                style={{
+                                    width: "60%",
+                                    alignSelf: "center",
+                                    borderRadius: 10
+                                }}
+                                onPress={() => this.removeImage()}
+                                style={{marginLeft: 10}}
+                            >
+                                <Text style={{alignContent: "center"}}>
+                                    Remove Image
+                                </Text>
+                            </Button>
+                        </View>
                     </View>
+                    <Button
+                        block
+                        success
+                        style={{
+                            width: "91%",
+                            marginLeft: "auto",
+                            marginRight: "auto"
+                        }}
+                        onPress={() => {
+                            this.fileComplaint();
+                        }}
+                    >
+                        <Text>File Complaint</Text>
+                    </Button>
                 </View>
-            </ScrollView>
+            </View>
         );
     }
 }

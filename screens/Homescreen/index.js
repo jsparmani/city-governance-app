@@ -18,15 +18,38 @@ import {createMaterialTopTabNavigator} from "react-navigation-tabs";
 
 const HomeStack = createStackNavigator(
     {
-        Home: {screen: HomeScreen},
+        HomeMain: {screen: HomeScreen, navigationOptions: {title: "Home"}},
         pwd: {screen: PWDScreen},
         Police: {screen: PoliceScreen},
         Tourism: {screen: TourismScreen},
-        AddDepartment: {screen: AddDeptScreen},
-        AddSchemeScreen: {screen: AddSchemeScreen}
+        AddDepartment: {
+            screen: AddDeptScreen,
+            navigationOptions: {title: "Add Department"}
+        },
+        AddScheme: {
+            screen: AddSchemeScreen,
+            navigationOptions: {title: "Add Scheme"}
+        },
+        Settings: {screen: SettingScreen},
+        Complaints: {screen: ComplaintScreen}
     },
     {
-        initialRouteName: "Home"
+        initialRouteName: "HomeMain",
+        defaultNavigationOptions: {
+            headerTintColor: "#FFFFFF",
+            headerStyle: {
+                backgroundColor: "#0A79DF"
+            },
+            headerTitleStyle: {
+                fontWeight: "bold",
+                justifyContent: "space-between",
+                alignSelf: "center",
+                textAlign: "center",
+                flex: 1,
+                flexGrow: 1
+            }
+        },
+        headerMode: "screen"
     }
 );
 

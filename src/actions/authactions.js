@@ -37,16 +37,28 @@ const loginUserSuccess = async (dispatch, token, props) => {
         .then(res => {
             type = res.data.type;
 
-            if (res.data.department) {
+            let dept_id = null;
+
+            if (type !== "citizen") {
                 dept_id = res.data.department_id;
+            }
+
+            routes = [];
+
+            if (type === "citizen") {
+                routes = ["HomeMain", "Complaints", "Settings"];
+            } else if (type === "department") {
+                routes = ["HomeMain", "AddScheme", "Settings"];
+            } else if (type === "superuser") {
+                routes = ["HomeMain", "AddDepartment", "Settings"];
             }
 
             dispatch({
                 type: LOGIN_USER_SUCCESS,
-                payload: [`Token ${token}`, type, dept_id, res.data.id]
+                payload: [`Token ${token}`, type, dept_id, res.data.id, routes]
             });
 
-            props.navigation.navigate("Home");
+            props.navigation.navigate("HomeMain");
         });
 };
 
@@ -72,16 +84,33 @@ export const loginCheck = navigation => async dispatch => {
                 if (res.status === 200) {
                     type = res.data.type;
 
-                    if (res.data.department) {
+                    let dept_id = null;
+                    if (type !== "citizen") {
                         dept_id = res.data.department_id;
+                    }
+
+                    routes = [];
+
+                    if (type === "citizen") {
+                        routes = ["HomeMain", "Complaints", "Settings"];
+                    } else if (type === "department") {
+                        routes = ["HomeMain", "AddScheme", "Settings"];
+                    } else if (type === "superuser") {
+                        routes = ["HomeMain", "AddDepartment", "Settings"];
                     }
 
                     dispatch({
                         type: LOGIN_CHECK,
-                        payload: [`${token}`, type, dept_id, res.data.id]
+                        payload: [
+                            `${token}`,
+                            type,
+                            dept_id,
+                            res.data.id,
+                            routes
+                        ]
                     });
 
-                    navigation.navigate("Home");
+                    navigation.navigate("HomeMain");
                 } else {
                     alert("Not 200");
                 }

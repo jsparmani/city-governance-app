@@ -13,7 +13,7 @@ const INITIAL_STATE = {
     error: "",
     loading: false,
     isLoggedIn: false,
-    routes: ["Settings", "Complaints"],
+    routes: [],
     dept_id: null,
     user_type: "",
     user_id: null
@@ -35,7 +35,8 @@ export default (state = INITIAL_STATE, action) => {
                 loading: false,
                 error: "",
                 isLoggedIn: true,
-                user_id: action.payload[3]
+                user_id: action.payload[3],
+                routes: action.payload[4]
             };
         case LOGIN_USER_FAIL:
             return {
@@ -54,7 +55,8 @@ export default (state = INITIAL_STATE, action) => {
                 user_type: action.payload[1],
                 dept_id: action.payload[2],
                 isLoggedIn: true,
-                user_id: action.payload[3]
+                user_id: action.payload[3],
+                routes: action.payload[4]
             };
         default:
             return state;
