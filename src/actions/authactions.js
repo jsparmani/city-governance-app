@@ -49,12 +49,11 @@ const loginUserSuccess = async (dispatch, token, props) => {
                 routes = [
                     "HomeMain",
                     "Complaints",
-                    "Settings",
-                    "PaymentScreen",
                     "PayBill",
                     "Downloads",
                     "Schemes",
-                    "New_Connection"
+                    "New_Connection",
+                    "Settings"
                 ];
             } else if (type === "department") {
                 routes = ["HomeMain", "AddScheme", "Settings"];
@@ -104,12 +103,11 @@ export const loginCheck = navigation => async dispatch => {
                         routes = [
                             "HomeMain",
                             "Complaints",
-                            "Settings",
-                            "PaymentScreen",
                             "PayBill",
                             "Downloads",
                             "Schemes",
-                            "New_Connection"
+                            "New_Connection",
+                            "Settings"
                         ];
                     } else if (type === "department") {
                         routes = ["HomeMain", "AddScheme", "Settings"];

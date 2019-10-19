@@ -104,14 +104,12 @@ const Drawer = createDrawerNavigator(
             }
         },
 
-
         Complaints: {screen: ComplaintScreen},
         Downloads: {screen: DownloadScreen},
         Schemes: {screen: SchemesListScreen},
         Settings: {screen: SettingScreen},
         Chat: {screen: Chatscreen},
         New_Connection: {screen: ConnectionScreen},
-        PaymentScreen: {screen: PaymentScreen},
         PayBill: {screen: BillPaymentScreen}
     },
     {

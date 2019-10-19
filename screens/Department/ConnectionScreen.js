@@ -38,10 +38,9 @@ export default class GetConnection extends Component {
         title: "New Connection      "
     };
 
-
     pickDocument = async () => {
         const result = await DocumentPicker.getDocumentAsync({});
-        console.log("result", result);
+
         if (!result.cancelled) {
             this.setState({
                 image: result
@@ -78,7 +77,6 @@ export default class GetConnection extends Component {
     }
 
     render() {
-        console.log(this.state.departmentSelected);
         return (
             <ScrollView
                 style={{
@@ -138,7 +136,6 @@ export default class GetConnection extends Component {
                         <TextInput style={styles.textIntake} multiline />
                     </Card>
                 </View>
-
 
                 <Button
                     info
