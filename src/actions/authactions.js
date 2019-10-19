@@ -43,7 +43,7 @@ const loginUserSuccess = async (dispatch, token, props) => {
 
             dispatch({
                 type: LOGIN_USER_SUCCESS,
-                payload: [`Token ${token}`, type, dept_id]
+                payload: [`Token ${token}`, type, dept_id, res.data.id]
             });
 
             props.navigation.navigate("Home");
@@ -75,9 +75,10 @@ export const loginCheck = navigation => async dispatch => {
                     if (res.data.department) {
                         dept_id = res.data.department_id;
                     }
+
                     dispatch({
                         type: LOGIN_CHECK,
-                        payload: [`${token}`, type, dept_id]
+                        payload: [`${token}`, type, dept_id, res.data.id]
                     });
 
                     navigation.navigate("Home");
