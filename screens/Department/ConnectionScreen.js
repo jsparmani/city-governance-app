@@ -78,7 +78,6 @@ export default class GetConnection extends Component {
     }
 
     render() {
-        console.log(this.state.departmentSelected);
         return (
             <ScrollView
                 style={{

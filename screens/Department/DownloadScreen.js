@@ -56,7 +56,6 @@ class DownloadScreen extends Component {
                     onValueChange={(itemValue, itemIndex) => {
                         this.setState({ departmentSelected: itemValue })
                         axios.get(`department/downloads/?department=${itemValue}`).then(res => {
-                            console.log(res.data)
                             this.setState({ downloads: res.data });
                         });
 
