@@ -27,7 +27,7 @@ import {Ionicons} from "@expo/vector-icons";
 import axios from "axios";
 import {connect} from "react-redux";
 
-axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
+axios.defaults.baseURL = "https://citygovernance.pythonanywhere.com/api/";
 
 const width = Dimensions.get("screen").width;
 

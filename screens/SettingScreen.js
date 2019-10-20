@@ -22,7 +22,7 @@ import {logoutUser} from "../src/actions";
 import {connect} from "react-redux";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
+axios.defaults.baseURL = "https://citygovernance.pythonanywhere.com/api/";
 
 const dataArray = [{title: "Edit Details"}];
 

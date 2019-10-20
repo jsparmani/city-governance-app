@@ -30,7 +30,7 @@ import uuid from "uuid";
 
 const width = Dimensions.get("screen").width;
 
-axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
+axios.defaults.baseURL = "https://citygovernance.pythonanywhere.com/api/";
 
 class Complaint extends Component {
     state = {

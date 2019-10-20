@@ -5,7 +5,7 @@ import { Container, Header, Content, Icon, Form, Picker, Card, CardItem, Body, H
 import { connect } from 'react-redux';
 
 
-axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
+axios.defaults.baseURL = "https://citygovernance.pythonanywhere.com/api/";
 
 class DeptSchemeListScreen extends Component {
     constructor(props) {

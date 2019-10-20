@@ -7,6 +7,7 @@ import PoliceScreen from "../Department/Police";
 import AddDeptScreen from "../Department/AddDepartment";
 import AddSchemeScreen from "../Department/AddScheme";
 import ConnectionScreen from "../Department/ConnectionScreen";
+import ViewComplaintsScreen from "../Department/ViewComplaintsScreen";
 import DownloadScreen from "../Department/DownloadScreen";
 import DeptDetailsScreen from "../Department/DeptDetailsScreen";
 import DeptSchemesListScreen from "../Department/DeptSchemelistScreen";
@@ -49,7 +50,7 @@ const HomeStack = createStackNavigator(
             screen: AddDeptScreen,
             navigationOptions: { title: "Add Department" }
         },
-        AddScheme: {
+        Add_Scheme: {
             screen: AddSchemeScreen,
             navigationOptions: { title: "Add Scheme" }
         },
@@ -58,9 +59,10 @@ const HomeStack = createStackNavigator(
         Complaints: { screen: ComplaintScreen },
         Downloads: { screen: DownloadScreen },
         Departments: { screen: DeptDetailsScreen },
-        DeptSchemes: { screen: DeptSchemesListScreen },
+        Department_Schemes: { screen: DeptSchemesListScreen },
         EditScheme: { screen: EditSchemeScreen },
         New_Connection: { screen: ConnectionScreen },
+        View_Complaints: { screen: ViewComplaintsScreen },
         PaymentScreen: { screen: PaymentScreen },
         PayBill: { screen: BillPaymentScreen }
     },
@@ -133,8 +135,9 @@ const Drawer = createDrawerNavigator(
         Chat: { screen: Chatscreen },
         New_Connection: { screen: ConnectionScreen },
         PaymentScreen: { screen: PaymentScreen },
-        DeptSchemes: { screen: DeptSchemesListScreen },
-        PayBill: { screen: BillPaymentScreen }
+        Department_Schemes: { screen: DeptSchemesListScreen },
+        PayBill: { screen: BillPaymentScreen },
+        View_Complaints: { screen: ViewComplaintsScreen }
 
     },
     {

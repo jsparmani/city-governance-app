@@ -19,7 +19,7 @@ import {connect} from "react-redux";
 import {loginUser, loginCheck} from "../../src/actions";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
+axios.defaults.baseURL = "https://citygovernance.pythonanywhere.com/api/";
 
 class LoginScreen extends Component {
     static navigationOptions = {
