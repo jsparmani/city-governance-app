@@ -19,7 +19,8 @@ import {
     Button,
     Icon,
     Title,
-    Textarea
+    Textarea,
+    Toast
 } from "native-base";
 import axios from "axios";
 import {connect} from "react-redux";
@@ -93,12 +94,30 @@ class Complaint extends Component {
         form_data.append("title", this.state.title);
         form_data.append("description", this.state.description);
         form_data.append("user", this.props.user_id);
-        axios.post("department/complaints/", form_data, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-                Authorization: this.props.token
-            }
-        });
+        axios
+            .post("department/complaints/", form_data, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: this.props.token
+                }
+            })
+            .then(() => {
+                Toast.show({
+                    text: "Complaint Filed",
+                    buttonText: "Okay",
+                    type: "danger"
+                });
+
+                this.props.navigation.navigate("HomeMain");
+            })
+            .catch(() => {
+                Toast.show({
+                    text: "Some error occured!",
+                    buttonText: "Okay",
+                    type: "danger"
+                });
+                console.log("err");
+            });
     };
 
     render() {

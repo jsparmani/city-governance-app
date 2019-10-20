@@ -7,6 +7,7 @@ import {
 } from "./types";
 import axios from "axios";
 import {AsyncStorage} from "react-native";
+import {Toast} from "native-base";
 
 axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
 
@@ -66,6 +67,12 @@ const loginUserSuccess = async (dispatch, token, props) => {
                 payload: [`Token ${token}`, type, dept_id, res.data.id, routes]
             });
 
+            Toast.show({
+                text: "Successfully Logged In!",
+                buttonText: "Okay",
+                type: "success"
+            });
+
             props.navigation.navigate("HomeMain");
         });
 };
@@ -77,6 +84,12 @@ const loginUserFail = dispatch => {
 export const logoutUser = navigation => async dispatch => {
     await AsyncStorage.removeItem("auth_token");
     dispatch({type: LOGOUT_USER});
+
+    Toast.show({
+        text: "Successfully Logged Out!",
+        buttonText: "Okay",
+        type: "success"
+    });
     navigation.navigate("Login");
 };
 
@@ -127,6 +140,11 @@ export const loginCheck = navigation => async dispatch => {
                     });
 
                     navigation.navigate("HomeMain");
+                    Toast.show({
+                        text: "Successfully Logged In!",
+                        buttonText: "Okay",
+                        type: "success"
+                    });
                 } else {
                     alert("Not 200");
                 }

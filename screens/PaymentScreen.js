@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Text, View, WebView, StatusBar, StyleSheet} from "react-native";
 import uuid from "uuid";
 import {connect} from "react-redux";
-import {Button, Footer, FooterTab} from "native-base";
+import {Button, Footer, FooterTab, Toast} from "native-base";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
@@ -45,10 +45,21 @@ class PaymentScreen extends Component {
                 })
                 .then(() => {
                     this.setState({count: this.state.count++});
+                    Toast.show({
+                        text: "Payment Successfully!",
+                        buttonText: "Okay",
+                        type: "success"
+                    });
                     this.props.navigation.navigate("HomeMain");
                 });
         } else if (title === false) {
-            console.log("not here");
+            console.log("Here");
+            Toast.show({
+                text: "Payment Unsuccessfully!",
+                buttonText: "Okay",
+                type: "danger"
+            });
+            this.props.navigation.navigate("HomeMain");
         }
     };
 

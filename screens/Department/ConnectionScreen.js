@@ -18,20 +18,25 @@ import {
     Button,
     Icon,
     Title,
-    Card
+    Card,
+    Toast
 } from "native-base";
 import * as DocumentPicker from "expo-document-picker";
 import {Ionicons} from "@expo/vector-icons";
 import axios from "axios";
+import {connect} from "react-redux";
 
 axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
 
 const width = Dimensions.get("screen").width;
 
-export default class GetConnection extends Component {
+class GetConnection extends Component {
     state = {
         departmentSelected: "3",
-        image: null
+        image: null,
+        name: "",
+        phone: "",
+        address: ""
     };
 
     static navigationOptions = {
@@ -49,27 +54,56 @@ export default class GetConnection extends Component {
     };
 
     postDocument() {
-        const {name, uri} = this.state.image;
-        const uriParts = name.split(".");
-        const fileType = uriParts[uriParts.length - 1];
-        const formData = new FormData();
-        formData.append("document", {
-            uri,
-            name,
-            type: `application/${fileType}`
-        });
-        formData.append("file_name", name);
-        formData.append("department", parseInt(this.state.departmentSelected));
-        const options = {
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "multipart/form-data"
-            }
-        };
+        try {
+            const {name, uri} = this.state.image;
 
-        axios
-            .post("file-uploads/", formData, options)
-            .then(res => console.log(res.data));
+            const uriParts = name.split(".");
+            const fileType = uriParts[uriParts.length - 1];
+            const formData = new FormData();
+            formData.append("address_proof", {
+                uri,
+                name,
+                type: `application/${fileType}`
+            });
+            formData.append(
+                "department",
+                parseInt(this.state.departmentSelected)
+            );
+            formData.append("user", this.props.user_id);
+            formData.append("name", this.state.name);
+            formData.append("phone_no", parseInt(this.state.phone));
+            formData.append("address", this.state.address);
+            const options = {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "multipart/form-data"
+                }
+            };
+
+            axios
+                .post("department/connection-requests/", formData, options)
+                .then(res => {
+                    Toast.show({
+                        text: "Connection Requested!",
+                        buttonText: "Okay",
+                        type: "success"
+                    });
+                    this.props.navigation.navigate("HomeMain");
+                })
+                .catch(() => {
+                    Toast.show({
+                        text: "Please try again!",
+                        buttonText: "Okay",
+                        type: "danger"
+                    });
+                });
+        } catch (error) {
+            Toast.show({
+                text: "Please try again!",
+                buttonText: "Okay",
+                type: "danger"
+            });
+        }
     }
 
     componentWillMount() {
@@ -77,6 +111,7 @@ export default class GetConnection extends Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <ScrollView
                 style={{
@@ -115,25 +150,30 @@ export default class GetConnection extends Component {
                 >
                     <Card style={styles.inputField}>
                         <Text style={styles.inputText}>Name : </Text>
-                        <TextInput style={styles.textIntake} />
-                    </Card>
-                    <Card style={styles.inputField}>
-                        <Text style={styles.inputText}>Email Address : </Text>
                         <TextInput
                             style={styles.textIntake}
-                            keyboardType="email-address"
+                            value={this.state.name}
+                            onChangeText={name => this.setState({name})}
                         />
                     </Card>
+
                     <Card style={styles.inputField}>
                         <Text style={styles.inputText}>Phone no. : </Text>
                         <TextInput
                             style={styles.textIntake}
                             keyboardType="phone-pad"
+                            value={this.state.phone}
+                            onChangeText={phone => this.setState({phone})}
                         />
                     </Card>
                     <Card style={styles.inputField}>
                         <Text style={styles.inputText}>Address : </Text>
-                        <TextInput style={styles.textIntake} multiline />
+                        <TextInput
+                            style={styles.textIntake}
+                            multiline
+                            value={this.state.address}
+                            onChangeText={address => this.setState({address})}
+                        />
                     </Card>
                 </View>
 
@@ -156,7 +196,7 @@ export default class GetConnection extends Component {
                 >
                     <Ionicons name="ios-attach" size={40} />
                     <View style={{marginLeft: 10}}>
-                        <Text style={{fontSize: 20}}>Select a file</Text>
+                        <Text style={{fontSize: 20}}>Attach address proof</Text>
                     </View>
                 </Button>
 
@@ -177,7 +217,6 @@ export default class GetConnection extends Component {
                         justifyContent: "center"
                     }}
                 >
-                    <Ionicons name="ios-attach" size={40} />
                     <View style={{marginLeft: 10}}>
                         <Text style={{fontSize: 20}}>Submit</Text>
                     </View>
@@ -186,6 +225,15 @@ export default class GetConnection extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        user_id: state.auth.user_id,
+        token: state.auth.token
+    };
+};
+
+export default connect(mapStateToProps)(GetConnection);
 
 const styles = StyleSheet.create({
     list: {

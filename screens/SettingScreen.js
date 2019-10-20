@@ -5,7 +5,8 @@ import {
     Image,
     StyleSheet,
     StatusBar,
-    TextInput
+    TextInput,
+    TouchableOpacity
 } from "react-native";
 import {
     Header,
@@ -19,13 +20,47 @@ import {
 } from "native-base";
 import {logoutUser} from "../src/actions";
 import {connect} from "react-redux";
+import axios from "axios";
+
+axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
 
 const dataArray = [{title: "Edit Details"}];
 
 class SettingScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
+    state = {
+        name: "",
+        email: ""
+    };
+
+    fetchDetails = () => {
+        axios.get(`user/edit/${this.props.user_id}/`).then(res => {
+            this.setState({name: res.data.first_name, email: res.data.email});
+        });
+    };
+
+    editDetails = () => {
+        axios
+            .put(`user/edit/${this.props.user_id}/`, {
+                first_name: this.state.name,
+                last_name: "",
+                email: this.state.email
+            })
+
+            .then(() => {
+                this.props.navigation.navigate("HomeMain");
+            })
+
+            .catch(() => {
+                console.log("error");
+            });
+    };
+
+    componentWillMount() {
+        axios.defaults.headers.common["Authorization"] = this.props.token;
+        this.fetchDetails();
+        this.props.navigation.addListener("willFocus", () => {
+            this.fetchDetails();
+        });
     }
 
     static navigationOptions = {
@@ -46,6 +81,8 @@ class SettingScreen extends Component {
                         borderWidth: 1.5,
                         borderRadius: 5
                     }}
+                    value={this.state.name}
+                    onChangeText={name => this.setState({name})}
                 />
                 <TextInput
                     placeholder={"Add Email"}
@@ -58,6 +95,8 @@ class SettingScreen extends Component {
                         borderWidth: 1.5,
                         borderRadius: 5
                     }}
+                    value={this.state.email}
+                    onChangeText={email => this.setState({email})}
                 />
                 <View
                     style={{
@@ -69,19 +108,19 @@ class SettingScreen extends Component {
                         borderRadius: 5
                     }}
                 >
-                    <Button
-                        style={{
-                            width: "100%",
-                            justifyContent: "center",
-                            backgroundColor: "#ff860d",
-                            alignItems: "center"
-                        }}
-                        onPress={() =>
-                            this.props.logoutUser(this.props.navigation)
-                        }
-                    >
-                        <Text>SUBMIT</Text>
-                    </Button>
+                    <TouchableOpacity>
+                        <Button
+                            style={{
+                                width: "100%",
+                                justifyContent: "center",
+                                backgroundColor: "#ff860d",
+                                alignItems: "center"
+                            }}
+                            onPress={() => this.editDetails()}
+                        >
+                            <Text>SUBMIT</Text>
+                        </Button>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -101,10 +140,12 @@ class SettingScreen extends Component {
                     />
                 </View>
                 <View style={styles.card}>
-                    <Text style={{fontSize: 20}}>Name: kjdwjbe</Text>
+                    <Text style={{fontSize: 20}}>Name: {this.state.name}</Text>
                 </View>
                 <View style={[styles.card, {marginTop: 20}]}>
-                    <Text style={{fontSize: 20}}>ID: kjdwjbe@xyz.com</Text>
+                    <Text style={{fontSize: 20}}>
+                        Email: {this.state.email}
+                    </Text>
                 </View>
 
                 <Accordion
@@ -165,7 +206,14 @@ const styles = StyleSheet.create({
     }
 });
 
+const mapStateToProps = state => {
+    return {
+        token: state.auth.token,
+        user_id: state.auth.user_id
+    };
+};
+
 export default connect(
-    null,
+    mapStateToProps,
     {logoutUser}
 )(SettingScreen);
