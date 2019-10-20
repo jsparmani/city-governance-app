@@ -44,10 +44,10 @@ export default class HomeScreen extends Component {
                 <View>
                     <Button
                         info block
-                        onPress={() => this.props.navigation.navigate('Schemes')}
+                        onPress={() => this.props.navigation.navigate('Departments')}
                         style={{ padding: 10, borderRadius: 5, marginTop: 20, width: '80%', marginLeft: 'auto', marginRight: 'auto', alignContent: 'center', justifyContent: 'center' }}
                     >
-                        <Text style={{ fontSize: 20 }}>View Schemes</Text>
+                        <Text style={{ fontSize: 20 }}>View Department Details</Text>
                     </Button>
                 </View>
                 <View>

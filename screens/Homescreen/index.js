@@ -8,7 +8,7 @@ import AddDeptScreen from "../Department/AddDepartment";
 import AddSchemeScreen from "../Department/AddScheme";
 import ConnectionScreen from "../Department/ConnectionScreen";
 import DownloadScreen from "../Department/DownloadScreen";
-import SchemesListScreen from "../Department/SchemesListScreen";
+import DeptDetailsScreen from "../Department/DeptDetailsScreen";
 import DeptSchemesListScreen from "../Department/DeptSchemelistScreen";
 import EditSchemeScreen from "../Department/EditSchemeScreen";
 import TourismScreen from "../Department/Tourism";
@@ -57,7 +57,7 @@ const HomeStack = createStackNavigator(
         Settings: { screen: SettingScreen },
         Complaints: { screen: ComplaintScreen },
         Downloads: { screen: DownloadScreen },
-        Schemes: { screen: SchemesListScreen },
+        Departments: { screen: DeptDetailsScreen },
         DeptSchemes: { screen: DeptSchemesListScreen },
         EditScheme: { screen: EditSchemeScreen },
         New_Connection: { screen: ConnectionScreen },
@@ -127,7 +127,7 @@ const Drawer = createDrawerNavigator(
 
         Complaints: { screen: ComplaintScreen },
         Downloads: { screen: DownloadScreen },
-        Schemes: { screen: SchemesListScreen },
+        Departments: { screen: DeptDetailsScreen },
         EditScheme: { screen: EditSchemeScreen },
         Settings: { screen: SettingScreen },
         Chat: { screen: Chatscreen },
