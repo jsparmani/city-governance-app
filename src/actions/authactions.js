@@ -52,7 +52,7 @@ const loginUserSuccess = async (dispatch, token, props) => {
                     "Complaints",
                     "PayBill",
                     "Downloads",
-                    "Schemes",
+                    "Departments",
                     "New_Connection",
                     "Settings"
                 ];
@@ -119,7 +119,7 @@ export const loginCheck = navigation => async dispatch => {
                             "Complaints",
                             "PayBill",
                             "Downloads",
-                            "Schemes",
+                            "Departments",
                             "New_Connection",
                             "Settings"
                         ];
