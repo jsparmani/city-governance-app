@@ -7,7 +7,8 @@ import {
     Dimensions,
     StyleSheet,
     TextInput,
-    Image
+    Image,
+    ActivityIndicator
 } from "react-native";
 import {
     Picker,
@@ -54,6 +55,7 @@ class GetConnection extends Component {
     };
 
     postDocument() {
+        this.setState({loading: true})
         try {
             const {name, uri} = this.state.image;
 
@@ -83,6 +85,7 @@ class GetConnection extends Component {
             axios
                 .post("department/connection-requests/", formData, options)
                 .then(res => {
+                    this.setState({loading: false})
                     Toast.show({
                         text: "Connection Requested!",
                         buttonText: "Okay",
@@ -91,6 +94,7 @@ class GetConnection extends Component {
                     this.props.navigation.navigate("HomeMain");
                 })
                 .catch(() => {
+                    this.setState({loading: false})
                     Toast.show({
                         text: "Please try again!",
                         buttonText: "Okay",
@@ -98,6 +102,7 @@ class GetConnection extends Component {
                     });
                 });
         } catch (error) {
+            this.setState({loading: false})
             Toast.show({
                 text: "Please try again!",
                 buttonText: "Okay",
@@ -110,8 +115,36 @@ class GetConnection extends Component {
         axios.defaults.headers.common["Authorization"] = this.props.token;
     }
 
-    render() {
+    renderButton = () => {
+        if (this.state.loading) {
+            return <ActivityIndicator size={"large"} />;
+        }
+        return (
+            <Button
+                info
+                block
+                onPress={() => {
+                    this.postDocument();
+                }}
+                style={{
+                    padding: 10,
+                    borderRadius: 5,
+                    marginTop: 5,
+                    width: "80%",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    alignContent: "center",
+                    justifyContent: "center"
+                }}
+            >
+                <View style={{marginLeft: 10}}>
+                    <Text style={{fontSize: 20}}>Submit</Text>
+                </View>
+            </Button>
+        );
+    };
 
+    render() {
         return (
             <ScrollView
                 style={{
@@ -200,27 +233,7 @@ class GetConnection extends Component {
                     </View>
                 </Button>
 
-                <Button
-                    info
-                    block
-                    onPress={() => {
-                        this.postDocument();
-                    }}
-                    style={{
-                        padding: 10,
-                        borderRadius: 5,
-                        marginTop: 5,
-                        width: "80%",
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        alignContent: "center",
-                        justifyContent: "center"
-                    }}
-                >
-                    <View style={{marginLeft: 10}}>
-                        <Text style={{fontSize: 20}}>Submit</Text>
-                    </View>
-                </Button>
+                {this.renderButton()}
             </ScrollView>
         );
     }

@@ -90,12 +90,7 @@ class LoginScreen extends Component {
                 </TouchableOpacity>
             );
         } else {
-            return (
-                <ActivityIndicator
-                    style={{width: 100, height: 100, marginTop: 20}}
-                    size={20}
-                />
-            );
+            return <ActivityIndicator size={"large"} />;
         }
     };
 

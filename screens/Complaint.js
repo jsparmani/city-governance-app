@@ -8,7 +8,8 @@ import {
     StyleSheet,
     TextInput,
     TouchableOpacity,
-    Image
+    Image,
+    ActivityIndicator
 } from "react-native";
 import {
     Picker,
@@ -33,11 +34,12 @@ axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
 
 class Complaint extends Component {
     state = {
-        departmentSelected: "",
+        departmentSelected: "1",
         departments: [],
         title: "",
         description: "",
-        avatar: ""
+        avatar: "",
+        loading: false
     };
 
     static navigationOptions = {
@@ -84,6 +86,7 @@ class Complaint extends Component {
     }
 
     fileComplaint = () => {
+        this.setState({loading: true});
         let form_data = new FormData();
         form_data.append("image", {
             uri: this.state.avatar,
@@ -102,6 +105,7 @@ class Complaint extends Component {
                 }
             })
             .then(() => {
+                this.setState({loading: false});
                 Toast.show({
                     text: "Complaint Filed",
                     buttonText: "Okay",
@@ -111,6 +115,7 @@ class Complaint extends Component {
                 this.props.navigation.navigate("HomeMain");
             })
             .catch(() => {
+                this.setState({loading: false});
                 Toast.show({
                     text: "Some error occured!",
                     buttonText: "Okay",
@@ -119,6 +124,28 @@ class Complaint extends Component {
                 console.log("err");
             });
     };
+
+    renderButton() {
+        if (this.state.loading) {
+            return <ActivityIndicator size={"large"} />;
+        }
+        return (
+            <Button
+                block
+                success
+                style={{
+                    width: "91%",
+                    marginLeft: "auto",
+                    marginRight: "auto"
+                }}
+                onPress={() => {
+                    this.fileComplaint();
+                }}
+            >
+                <Text>File Complaint</Text>
+            </Button>
+        );
+    }
 
     render() {
         return (
@@ -260,20 +287,7 @@ class Complaint extends Component {
                             </Button>
                         </View>
                     </View>
-                    <Button
-                        block
-                        success
-                        style={{
-                            width: "91%",
-                            marginLeft: "auto",
-                            marginRight: "auto"
-                        }}
-                        onPress={() => {
-                            this.fileComplaint();
-                        }}
-                    >
-                        <Text>File Complaint</Text>
-                    </Button>
+                    {this.renderButton()}
                 </View>
             </View>
         );
