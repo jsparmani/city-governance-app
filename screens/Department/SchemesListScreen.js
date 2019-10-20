@@ -1,9 +1,11 @@
+
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, TextInput } from 'react-native';
 import axios from 'axios';
 import { Container, Header, Content, Icon, Form, Picker, Card, CardItem, Body, H2 } from "native-base";
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
+
 
 
 axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
@@ -13,15 +15,16 @@ class SchemeListScreen extends Component {
         super(props);
         this.state = {
             departments: [],
-            departmentSelected: '-1',
+            departmentSelected: "-1",
             schemes: [],
-            projects: [],
+            projects: []
         };
     }
 
     static navigationOptions = {
         title: "Schemes"
     };
+
 
     fetchDepartments = () => {
         axios.get("department/departments/").then(res => {
@@ -42,28 +45,41 @@ class SchemeListScreen extends Component {
         return (
             <View>
                 <Picker
-                    mode='dialog'
+                    mode="dialog"
                     placeholder={"Select Department"}
-                    modalStyle={{ marginTop: 10 }}
+                    modalStyle={{marginTop: 10}}
                     itemStyle={{
                         backgroundColor: "#d3d3d3",
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
+                        marginLeft: "auto",
+                        marginRight: "auto",
                         paddingLeft: 10
                     }}
-                    itemTextStyle={{ color: '#788ad2' }}
-                    style={{ width: '90%', margin: 10, backgroundColor: '#f5da42', borderRadius: 15, marginRight: 'auto', marginLeft: 'auto' }}
-                    selectedValue={this.state.departmentSelected === '' ? '   ' : this.state.departmentSelected}
+                    itemTextStyle={{color: "#788ad2"}}
+                    style={{
+                        width: "90%",
+                        margin: 10,
+                        backgroundColor: "#f5da42",
+                        borderRadius: 15,
+                        marginRight: "auto",
+                        marginLeft: "auto"
+                    }}
+                    selectedValue={
+                        this.state.departmentSelected === ""
+                            ? "   "
+                            : this.state.departmentSelected
+                    }
                     onValueChange={(itemValue, itemIndex) => {
-                        this.setState({ departmentSelected: itemValue })
-                        axios.get(`department/schemes/?department=${itemValue}`).then(res => {
-                            console.log(itemValue)
-                            this.setState({ schemes: res.data });
-                        });
-                        axios.get(`department/projects/?department=${itemValue}`).then(res => {
-                            this.setState({ projects: res.data });
-                        });
-
+                        this.setState({departmentSelected: itemValue});
+                        axios
+                            .get(`department/schemes/?department=${itemValue}`)
+                            .then(res => {
+                                this.setState({schemes: res.data});
+                            });
+                        axios
+                            .get(`department/projects/?department=${itemValue}`)
+                            .then(res => {
+                                this.setState({projects: res.data});
+                            });
                     }}
                 >
                     {this.state.departments.map((item, index) => {
@@ -75,54 +91,93 @@ class SchemeListScreen extends Component {
                             />
                         );
                     })}
-
                 </Picker>
                 <ScrollView>
                     <View>
-                        <H2 style={{ marginLeft: 20, marginTop: 20, marginBottom: 15 }}>Projects</H2>
+                        <H2
+                            style={{
+                                marginLeft: 20,
+                                marginTop: 20,
+                                marginBottom: 15
+                            }}
+                        >
+                            Projects
+                        </H2>
                         <FlatList
                             data={this.state.projects}
-                            renderItem={({ item }) => {
+                            renderItem={({item}) => {
                                 return (
-                                    <View style={{ alignSelf: 'center', margineft: 10, width: '90%', elevation: 20, shadowColor: 'black' }}>
+                                    <View
+                                        style={{
+                                            alignSelf: "center",
+                                            margineft: 10,
+                                            width: "90%",
+                                            elevation: 20,
+                                            shadowColor: "black"
+                                        }}
+                                    >
                                         <Card>
                                             <CardItem header bordered>
-                                                <Text style={{ fontSize: 18 }}>{item.project_name}</Text>
+                                                <Text style={{fontSize: 18}}>
+                                                    {item.project_name}
+                                                </Text>
                                             </CardItem>
                                             <CardItem>
                                                 <Body>
                                                     <Text>
-                                                        {item.project_description}
+                                                        {
+                                                            item.project_description
+                                                        }
                                                     </Text>
                                                 </Body>
                                             </CardItem>
                                         </Card>
                                     </View>
-                                )
+                                );
                             }}
                         />
                     </View>
                     <View>
-                        <H2 style={{ marginLeft: 20, marginTop: 20, marginBottom: 15 }}>Schemes</H2>
+                        <H2
+                            style={{
+                                marginLeft: 20,
+                                marginTop: 20,
+                                marginBottom: 15
+                            }}
+                        >
+                            Schemes
+                        </H2>
                         <FlatList
                             data={this.state.schemes}
-                            renderItem={({ item }) => {
+                            renderItem={({item}) => {
                                 return (
-                                    <View style={{ alignSelf: 'center', margineft: 10, width: '90%', elevation: 20, shadowColor: 'black' }}>
+                                    <View
+                                        style={{
+                                            alignSelf: "center",
+                                            margineft: 10,
+                                            width: "90%",
+                                            elevation: 20,
+                                            shadowColor: "black"
+                                        }}
+                                    >
                                         <Card>
                                             <CardItem header bordered>
-                                                <Text style={{ fontSize: 18 }}>{item.scheme_name}</Text>
+                                                <Text style={{fontSize: 18}}>
+                                                    {item.scheme_name}
+                                                </Text>
                                             </CardItem>
                                             <CardItem>
                                                 <Body>
                                                     <Text>
-                                                        {item.scheme_description}
+                                                        {
+                                                            item.scheme_description
+                                                        }
                                                     </Text>
                                                 </Body>
                                             </CardItem>
                                         </Card>
                                     </View>
-                                )
+                                );
                             }}
                         />
                     </View>
@@ -132,7 +187,6 @@ class SchemeListScreen extends Component {
     }
 }
 
-
 const styles = StyleSheet.create({
     list: {
         flexDirection: "row",
@@ -140,16 +194,15 @@ const styles = StyleSheet.create({
         backgroundColor: "#f5da42",
         borderRadius: 10,
         shadowColor: "black",
-        shadowOffset: { width: 10, height: 10 },
+        shadowOffset: {width: 10, height: 10},
         elevation: 10
-    },
-})
-
+    }
+});
 
 mapStateToProps = state => {
     return {
         token: state.auth.token
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps)(SchemeListScreen);

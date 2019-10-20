@@ -135,6 +135,7 @@ const Drawer = createDrawerNavigator(
         PaymentScreen: { screen: PaymentScreen },
         DeptSchemes: { screen: DeptSchemesListScreen },
         PayBill: { screen: BillPaymentScreen }
+
     },
     {
         initialRouteName: "Login",
