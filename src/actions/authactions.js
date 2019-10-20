@@ -11,8 +11,8 @@ import {Toast} from "native-base";
 
 axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
 
-export const loginUser = ({username, password}, props) => async dispatch => {
-    dispatch({type: LOGIN_USER});
+export const loginUser = ({ username, password }, props) => async dispatch => {
+    dispatch({ type: LOGIN_USER });
 
     axios
         .post("user/token/", {
@@ -57,7 +57,7 @@ const loginUserSuccess = async (dispatch, token, props) => {
                     "Settings"
                 ];
             } else if (type === "department") {
-                routes = ["HomeMain", "AddScheme", "Settings"];
+                routes = ["HomeMain", "AddScheme", "DeptSchemes", "Settings"];
             } else if (type === "superuser") {
                 routes = ["HomeMain", "AddDepartment", "Settings"];
             }
@@ -78,11 +78,12 @@ const loginUserSuccess = async (dispatch, token, props) => {
 };
 
 const loginUserFail = dispatch => {
-    dispatch({type: LOGIN_USER_FAIL});
+    dispatch({ type: LOGIN_USER_FAIL });
 };
 
 export const logoutUser = navigation => async dispatch => {
     await AsyncStorage.removeItem("auth_token");
+
     dispatch({type: LOGOUT_USER});
 
     Toast.show({
@@ -123,7 +124,7 @@ export const loginCheck = navigation => async dispatch => {
                             "Settings"
                         ];
                     } else if (type === "department") {
-                        routes = ["HomeMain", "AddScheme", "Settings"];
+                        routes = ["HomeMain", "AddScheme", "DeptSchemes", "Settings"];
                     } else if (type === "superuser") {
                         routes = ["HomeMain", "AddDepartment", "Settings"];
                     }
@@ -149,6 +150,6 @@ export const loginCheck = navigation => async dispatch => {
                     alert("Not 200");
                 }
             })
-            .catch(err => {});
+            .catch(err => { });
     }
 };

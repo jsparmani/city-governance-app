@@ -73,6 +73,7 @@ class DownloadScreen extends Component {
                             : this.state.departmentSelected
                     }
                     onValueChange={(itemValue, itemIndex) => {
+
                         this.setState({departmentSelected: itemValue});
                         axios
                             .get(

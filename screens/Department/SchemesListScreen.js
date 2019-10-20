@@ -1,20 +1,12 @@
-import React, {Component} from "react";
-import {View, Text, StyleSheet, FlatList} from "react-native";
-import axios from "axios";
-import {
-    Container,
-    Header,
-    Content,
-    Icon,
-    Form,
-    Picker,
-    Card,
-    CardItem,
-    Body,
-    H2
-} from "native-base";
-import {ScrollView} from "react-native-gesture-handler";
-import {connect} from "react-redux";
+
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, FlatList, TextInput } from 'react-native';
+import axios from 'axios';
+import { Container, Header, Content, Icon, Form, Picker, Card, CardItem, Body, H2 } from "native-base";
+import { ScrollView } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
+
+
 
 axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
 
