@@ -16,7 +16,7 @@ class SideBar extends React.Component {
                     />
                     <Image
                         style={{
-                            height: 160,
+                            height: 220,
                             width: "100%",
                             borderBottomLeftRadius: 10,
                             borderBottomRightRadius: 10,

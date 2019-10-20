@@ -6,10 +6,10 @@ import {
     LOGIN_CHECK
 } from "./types";
 import axios from "axios";
-import {AsyncStorage} from "react-native";
-import {Toast} from "native-base";
+import { AsyncStorage } from "react-native";
+import { Toast } from "native-base";
 
-axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
+axios.defaults.baseURL = "https://citygovernance.pythonanywhere.com/api/";
 
 export const loginUser = ({ username, password }, props) => async dispatch => {
     dispatch({ type: LOGIN_USER });
@@ -57,7 +57,7 @@ const loginUserSuccess = async (dispatch, token, props) => {
                     "Settings"
                 ];
             } else if (type === "department") {
-                routes = ["HomeMain", "AddScheme", "DeptSchemes", "Settings"];
+                routes = ["HomeMain", "Add_Scheme", "Department_Schemes", "View_Complaints", "Settings"];
             } else if (type === "superuser") {
                 routes = ["HomeMain", "AddDepartment", "Settings"];
             }
@@ -84,7 +84,7 @@ const loginUserFail = dispatch => {
 export const logoutUser = navigation => async dispatch => {
     await AsyncStorage.removeItem("auth_token");
 
-    dispatch({type: LOGOUT_USER});
+    dispatch({ type: LOGOUT_USER });
 
     Toast.show({
         text: "Successfully Logged Out!",
@@ -124,7 +124,7 @@ export const loginCheck = navigation => async dispatch => {
                             "Settings"
                         ];
                     } else if (type === "department") {
-                        routes = ["HomeMain", "AddScheme", "DeptSchemes", "Settings"];
+                        routes = ["HomeMain", "Add_Scheme", "Department_Schemes", "View_Complaints", "Settings"];
                     } else if (type === "superuser") {
                         routes = ["HomeMain", "AddDepartment", "Settings"];
                     }

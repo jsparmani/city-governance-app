@@ -14,7 +14,7 @@ import {TouchableWithoutFeedback} from "react-native-gesture-handler";
 import * as FileSystem from "expo-file-system";
 import {connect} from "react-redux";
 
-axios.defaults.baseURL = "http://192.168.137.1:8000/api/";
+axios.defaults.baseURL = "https://citygovernance.pythonanywhere.com/api/";
 
 class DownloadScreen extends Component {
     constructor(props) {
